@@ -3,20 +3,34 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: federation-cluster
+  labels:
+    slate-federation-role-version: "v1"
 rules:
-  -
-    apiGroups:
-      - ""
-      - apps
-      - autoscaling
-      - batch
-      - extensions
-      - policy
-      - rbac.authorization.k8s.io
-    # Everything except secrets
-    resources: ["*"]
-    verbs: ["*"]
-  - nonResourceURLs: ["*"]
-    verbs: ["*"]
-
-
+- apiGroups:
+  - "nrp-nautilus.io"
+  resources: ["*"]
+  verbs: ["*"]
+- apiGroups:
+  - ""
+  resources: ["*"]
+  verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: federation-cluster-global
+  labels:
+    slate-federation-role-version: "v1"
+rules:
+- apiGroups:
+  - ""
+  resources: ["*"]
+  verbs: ["*"]
+- apiGroups:
+  - scheduling.k8s.io
+  resources: ["*"]
+  verbs: ["*"]
+- apiGroups:
+  - storage.k8s.io
+  resources: ["*"]
+  verbs: ["*"]
